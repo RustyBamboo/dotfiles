@@ -1,0 +1,107 @@
+* {
+    font-size: 12px;
+    font-family: monospace;
+      opacity: 0.9;
+}
+
+window#waybar {
+    background: #1E1F23;
+    color: #fdf6e3;
+}
+#custom-time-divider {
+    font-size: 20px;
+    margin: -12px;
+    opacity: 1;
+
+}
+
+#clock.1 {
+    color: white;
+    opacity: 1;
+    font-size: 42px;
+    padding: 0;
+    margin: 0;
+}
+#clock.2 {
+    color: white;
+    opacity: 1;
+    font-size: 42px;
+    padding: 0;
+    margin: 0;
+}
+
+#clock.dotw {
+    color: white;
+    opacity: 1;
+    font-size: 29px;
+    padding: 0;
+    margin: 0;
+}
+
+#clock.date {
+    color: white;
+    opacity: 1;
+    font-size: 17px;
+    padding: 0;
+    margin: 0;
+}
+
+
+#workspaces {
+    /* margin-top: 12px; */
+    border-radius: 26px;
+    background: #000000;
+}
+#workspaces button {
+    margin: 2px;
+    /* padding: 2px 0px; */
+    padding: 0;
+    color: #fdf6e3;
+}
+#workspaces button.focused {
+    color:  #81D425;
+}
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+#workspaces button:hover {
+    border-color: #0C3D27;
+    background: #0C3D27;
+}
+#pulseaudio {
+    background: #9aedfe;
+}
+#backlight {
+    background: #b58900
+}
+#memory {
+    background: #ff6e67;
+}
+#temperature {
+    background: #5af78e;
+}
+#cpu {
+    background: #f1fa8c;
+}
+#battery {
+    background: white;
+}
+#battery.charging {
+    background: green;
+}
+#network {
+    background: #bd93f9;
+}
+#pulseaudio, #backlight, #memory, #cpu, #temperature, #battery, #network, #tray, #disk {
+    color: #1E1F23;
+    border-radius: 1px;
+    margin: 4px 0px;
+    padding: 10px 5px;
+}
+#clock{
+    padding: 0 16px;
+}
+#disk {
+    background: #f1fa8c;
+}
