@@ -185,7 +185,9 @@ exec swayidle \
     before-sleep 'swaylock -c 000000'
 
 
-#seat seat_wacom attach "1386:886:Wacom_Intuos_BT_S_Pen"
+seat seat_wacom attach "1386:886:Wacom_Intuos_BT_S_Pen"
+seat seat_wacom attach "1386:886:Wacom_Intuos_BT_S_Pad"
+seat seat0 hide_cursor 10000
 
 input "1386:886:Wacom_Intuos_BT_S_Pen" {
     map_to_output DP-2

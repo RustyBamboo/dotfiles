@@ -10,7 +10,7 @@
     "custom/time-divider",
     "clock#2"
   ],
-    "modules-right": ["tray", "pulseaudio","network", "disk", "cpu", "temperature#cpu", "temperature#gpu"],
+    "modules-right": ["tray", "pulseaudio","network", "disk", "cpu", "temperature#cpu", "temperature#gpu", "idle_inhibitor"],
     "sway/window": {
         "max-length": 10
     },
@@ -89,5 +89,22 @@
     "interval": 30,
     "format": "{percentage_free}%",
     "path": "/"
-}
+},
+"idle_inhibitor": {
+                "format": "{icon}",
+                "format-icons": {
+                    "activated": "",
+                    "deactivated": ""
+                }
+           },
+     "network": {
+     "format": "{ifname}",
+     "format-ethernet": "{ifname} ",
+     "format-disconnected": "", //An empty format will hide the module.
+     "tooltip-format": "{ifname}",
+     "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+     "tooltip-format-ethernet": "{ifname} ",
+     "tooltip-format-disconnected": "Disconnected",
+     "max-length": 50
+    }
 }
