@@ -51,7 +51,8 @@ output * bg /home/daniel/.config/sway/wallpaper.png fill
     bindsym $mod+Shift+c reload
 
     # exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec wlogout
 #
 # Moving around:
 #
@@ -175,28 +176,46 @@ bar {
 include /etc/sway/config.d/*
 
 
-output DP-2 scale 2 pos 0 0 
-output HDMI-A-1 scale 1 pos 1920 0
+output DP-3 scale 1 pos 0 0 
+output DP-3 transform 270
+output DP-2 scale 2 pos 1200 0 
+output HDMI-A-1 scale 1 pos 3120 0
 
-exec swayidle \
+exec /home/daniel/workspace/install/sway/subprojects/swayidle/build/swayidle -S seat0 \
     timeout 300 'swaylock -c 000000' \
     timeout 600 'swaymsg "output * dpms off"' \
       resume 'swaymsg "output * dpms on"' \
     before-sleep 'swaylock -c 000000'
 
 
+#seat seat_wacom attach "11551:886:Wacom_Co.,Ltd._Intuos_BT_S"
 seat seat_wacom attach "1386:886:Wacom_Intuos_BT_S_Pen"
 seat seat_wacom attach "1386:886:Wacom_Intuos_BT_S_Pad"
+seat seat_wacom hide_cursor 10000
+#seat seat_wacom idle_inhibit tablet_tool
+#seat seat_wacom idle_wake tablet_tool
+#seat seat_wacom keyboard_grouping none
+
 seat seat0 hide_cursor 10000
 
 input "1386:886:Wacom_Intuos_BT_S_Pen" {
-    map_to_output DP-2
+#    map_to_output DP-2
+    map_to_region 1210 10 1900 1070
 }
 
+#input "11551:886:Wacom_Co.,Ltd._Intuos_BT_S" {
+#    map_to_region 1210 10 1900 1070
+#}
 
 
-bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $HOME/Pictures/$(date +'%Y-%m-%d-%H%M%S_grim.png')
-bindsym $mod+Shift+Print exec grim -g "$(slurp)" $HOME/Pictures/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+
+#bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $HOME/Pictures/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+#bindsym $mod+Shift+Print exec grim -g "$(slurp)" $HOME/Pictures/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | swappy -f -
+bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
+
 
 #for_window [title="."] title_format "%app_id %title"
 #for_window [shell="xwayland"] title_format "[X] %app_id %title"
@@ -218,6 +237,7 @@ client.unfocused            "#333333" "#1E1F23E6" "#888888" "#2e9ef4" "#222222"
 # Preset workspaces
 workspace 1 output DP-2
 workspace 2 output HDMI-A-1
+workspace 3 output DP-3
 workspace 10 output HDMI-A-1
 
 
@@ -234,5 +254,13 @@ exec redshift -l 40.713050:-74.007230 -b 1.0:0.65
 exec opensnitch-ui
 exec MellowPlayer
 
+# Create a socket to pipe into wob to display a bar
+exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
-
+# Modify sound and feed into pipe using alsa
+# Raise
+bindsym $mod+F11 exec amixer -q set Master 2%+ unmute && amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print substr($2, 0, length($2)-1) }' > $SWAYSOCK.wob
+# Lower
+bindsym $mod+F10 exec amixer -q set Master 2%- unmute && amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print substr($2, 0, length($2)-1) }' > $SWAYSOCK.wob
+# Mute
+bindsym $mod+F9 exec (amixer get Master | grep off > /dev/null && amixer -q set Master unmute && amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print substr($2, 0, length($2)-1) }' > $SWAYSOCK.wob) || (amixer -q set Master mute && echo 0 > $SWAYSOCK.wob)
