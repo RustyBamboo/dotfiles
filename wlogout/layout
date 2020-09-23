@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock",
+    "action" : "swaylock -s fill -i /home/daniel/.config/sway/wallpaper-blurred.png --inside-color 00000000",
     "text" : "Lock",
     "keybind" : "l"
 }

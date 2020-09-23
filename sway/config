@@ -21,6 +21,9 @@ set $term alacritty
 set $menu wofi --show drun
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
+set $lock 'swaylock -s fill -i /home/daniel/.config/sway/wallpaper-blurred.png --inside-color 00000000'
+set $screenshare '/home/daniel/.config/sway/sway-screenshare.sh'
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -182,10 +185,10 @@ output DP-2 scale 2 pos 1200 0
 output HDMI-A-1 scale 1 pos 3120 0
 
 exec /home/daniel/workspace/install/sway/subprojects/swayidle/build/swayidle -S seat0 \
-    timeout 300 'swaylock -c 000000' \
+    timeout 300 $lock \
     timeout 600 'swaymsg "output * dpms off"' \
       resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -c 000000'
+    before-sleep $lock
 
 
 #seat seat_wacom attach "11551:886:Wacom_Co.,Ltd._Intuos_BT_S"
@@ -215,6 +218,7 @@ input "1386:886:Wacom_Intuos_BT_S_Pen" {
 
 bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | swappy -f -
 bindsym $mod+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
+bindsym $mod+Shift+F8 exec $screenshare
 
 
 #for_window [title="."] title_format "%app_id %title"
@@ -250,7 +254,7 @@ for_window [app_id="pavucontrol"] floating enable
 
 #exec --no-startup-id swaymsg 'workspace 2; exec alacritty --  zsh -c "todo.sh list; exec zsh"'
 exec mako
-exec redshift -l 40.713050:-74.007230 -b 1.0:0.65
+exec gammastep -l 40.713050:-74.007230 -b 1.0:0.65
 exec opensnitch-ui
 exec MellowPlayer
 
