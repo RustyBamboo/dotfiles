@@ -1,0 +1,14 @@
+exec "gtkgreet -l; swaymsg exit"
+
+bindsym Mod4+shift+e exec swaynag \
+	-t warning \
+	-m "What do you want to do?' \
+	-b 'Poweroff' 'systemctl poweroff'\
+	-b 'Reboot' 'systemctl reboot'
+
+include /etc/sway/config.d/*
+
+output DP-3 scale 1 pos 0 0 
+output DP-3 transform 270
+output DP-2 scale 2 pos 1200 0 
+output HDMI-A-1 scale 1 pos 3120 0

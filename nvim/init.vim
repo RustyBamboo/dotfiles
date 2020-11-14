@@ -11,14 +11,22 @@ Plug 'joshdick/onedark.vim'
 " Collection of common configurations for the Nvim LSP client
 Plug 'neovim/nvim-lspconfig'
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Extensions to built-in LSP, for example, providing type inlay hints
-Plug 'tjdevries/lsp_extensions.nvim'
+" Plug 'tjdevries/lsp_extensions.nvim'
 
 " Autocompletion framework for built-in LSP
 Plug 'nvim-lua/completion-nvim'
 
 " Diagnostic navigation and settings for built-in LSP
 Plug 'nvim-lua/diagnostic-nvim'
+
+" Latex
+Plug 'lervag/vimtex'
+
+" Markdown preview -- CAUTION: install nodejs and yarn
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -84,8 +92,25 @@ nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
 " have a fixed column for the diagnostics to appear in
 " this removes the jitter when warnings/errors flow in
 set signcolumn=yes
+let g:lightline = {
+ \ 'colorscheme': 'wombat',
+ \ 'active': {
+ \   'left': [ [ 'mode', 'paste' ],
+ \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+ \ },
+ \ 'component_function': {
+ \   'cocstatus': 'coc#status'
+ \ },
+ \ }
 
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 
-" Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
+setlocal spell
+set spelllang=nl,en_gb
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+set mouse=a

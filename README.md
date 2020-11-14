@@ -17,9 +17,14 @@ Running `install.sh` will create symlinks into `~/.config`.
 - [Swappy](https://github.com/jtheoof/swappy) - Screenshot editor
 - [Opensnitch](https://github.com/evilsocket/opensnitch) - Application-level firewall
 - [Gammastep](https://gitlab.com/chinstrap/gammastep) - Fork of Redshift that uses `wlr_gamma_control_unstable_v1`
+- [Greetd](https://git.sr.ht/~kennylevinsen/greetd) - Flexible login manager
+- [Gtkgreek](https://git.sr.ht/~kennylevinsen/gtkgreet) - GTK based greeter for greetd
+- [Wob](https://github.com/francma/wob) - Overlay bar for Wayland
 
 ### Tools
 - [Alacritty](https://github.com/alacritty/alacritty) - GPU-based Terminal
+- [Starship](https://github.com/starship/starship) - Fast and smart prompt for shell
+- [Zsh](https://www.zsh.org/) - Zsh shell
 - [Rsfetch](https://github.com/Phate6660/rsfetch) - System information
 - [Xournalpp](https://github.com/xournalpp/xournalpp) - Handwriting and notetaking
 

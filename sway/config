@@ -28,7 +28,7 @@ set $screenshare '/home/daniel/.config/sway/sway-screenshare.sh'
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/f31/default/normalish/f31.png fill
-output * bg /home/daniel/.config/sway/wallpaper.png fill
+output * bg /home/daniel/.config/sway/wallpaper.jpg fill
 
 ### Key bindings
 #
@@ -184,7 +184,7 @@ output DP-3 transform 270
 output DP-2 scale 2 pos 1200 0 
 output HDMI-A-1 scale 1 pos 3120 0
 
-exec /home/daniel/workspace/install/sway/subprojects/swayidle/build/swayidle -S seat0 \
+exec swayidle -S seat0 \
     timeout 300 $lock \
     timeout 600 'swaymsg "output * dpms off"' \
       resume 'swaymsg "output * dpms on"' \
